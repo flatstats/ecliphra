@@ -2720,7 +2720,7 @@ class EnergySystemExperiment(EcliphraExperiment):
     
     def create_energy_visualizations(self, results_summary):
         """Create overall energy analysis visualizations"""
-        # Create pathway importance summary
+        # Create pathway ance summary
         pattern_results = results_summary['pattern_results']
         
         # Extract pattern names and pathway allocations
@@ -2944,7 +2944,7 @@ class EnergySystemExperiment(EcliphraExperiment):
             attractors = self.results["attractors"][:step_count]
             ax2.plot(range(step_count), attractors, 'g-', label='Number of Attractors')
 
-from ecliphra.prefrontal import SignalEnvironment, PrefrontalModule
+from ecliphra.utils.prefrontal import SignalEnvironment, PrefrontalModule
 
 class PrefrontalExperiment(EcliphraExperiment):
     """
@@ -4256,13 +4256,12 @@ class EnhancedPrefrontalExperiment(PrefrontalExperiment):
         if not hasattr(self.model, 'prefrontal') or not hasattr(self.model.prefrontal, 'fatigue_level'):
             return
         
-        # Create output directory for fatigue visualizations
         fatigue_dir = os.path.join(self.output_dir, "fatigue_summary")
         os.makedirs(fatigue_dir, exist_ok=True)
         
-        # Use visualization module if available
+       
         try:
-            from visualization_code import visualize_fatigue_dynamics, create_fatigue_debug_dashboard
+            from ecliphra.visuals.fatigue_visualization import visualize_fatigue_dynamics, create_fatigue_debug_dashboard
             
             # Create fatigue visualizations
             visualize_fatigue_dynamics(self.model.prefrontal, fatigue_dir)
@@ -4273,7 +4272,7 @@ class EnhancedPrefrontalExperiment(PrefrontalExperiment):
         except ImportError:
             pass
         
-        # Fallback - create basic visualizations
+        # Fallback 
         try:
             import matplotlib.pyplot as plt
             import numpy as np
