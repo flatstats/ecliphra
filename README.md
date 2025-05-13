@@ -16,7 +16,7 @@ By treating cognition as an evolving energy process, Ecliphra explores how struc
 
 Traditional AI architectures focus on fixed mappings between inputs and outputs, often struggling with long-term memory formation, goal modulation, and resilience under disruption.
 
-Ecliphra challenges this paradigm by modeling intelligence as a self-organizing, energy-driven field system—where attractors form, memory structures stabilize, and goal-directed biases shape field evolution without predefined endpoints.
+Ecliphra challenges this paradigm by modeling intelligence as a self-organizing, energy-driven field system.  With this, attractors are able to form, memory structures are able to stabilize, and goal-directed biases can then shape field evolution without predefined endpoints.
 
 By treating cognition as a dynamic, recursive process, Ecliphra aims to uncover deeper principles behind stability, adaptation, and emergent identity.
 
@@ -197,19 +197,19 @@ classDiagram
 
 # **Key Features**
 
-**Dynamic Field Physics**: Core implementation of tensor field dynamics with emergent attractor states.
+**Dynamic Field Physics**: This is the core implementation of tensor field dynamics with emergent attractor states.
 
-**Echo Resonance**: Self-reinforcement mechanisms allowing the field to maintain and evolve coherent patterns over time.
+**Echo Resonance**: Self-reinforcement mechanisms added for allowing the field to maintain and evolve coherent patterns over time.
 
-**Enhanced Fingerprinting**: Robust pattern recognition resilient to noise, variation, and perturbations.
+**Enhanced Fingerprinting**: Robust pattern recognition created to be resilient to noise, variation, and perturbations.
 
-**Semantic Memory**: Association and recall of semantically similar patterns through recursive reinforcement.
+**Semantic Memory**: Created for association and recall of semantically similar patterns through recursive reinforcement.
 
 **Photosynthesis**:  (Retired for now, needs fixed) Energy-driven classification, growth, and integration of signals based on their structural characteristics.
 
-**Energy System**: Adaptive resource allocation system inspired by biological energy regulation processes.
+**Energy System**: Adaptive resource allocation system inspired by biological energy regulation processes. This is a more functioning version of the photosynthesis model class.
 
-**Prefrontal Capabilities**: Goal directed behavior modulation, working memory persistence, and executive control functions.
+**Prefrontal Capabilities**: Goal directed behavior modulation, working memory persistence, and executive control functions.  This is a simplified prototype to creating prefrontal cortex like functions
 
 UPDATED **Enhanced Fatigue Controller**: Measures effort to how much has changed to see what is left after completing a goal.
 
@@ -233,7 +233,7 @@ Ecliphra supports multiple experiment types to test different aspects of emergen
 
 **Energy**: Test adaptive energy-driven resource distribution.
 
-**Prefrontal**: Test goal-directed processing and executive modulation.
+**Prefrontal**: Test goal directed processing and executive modulation. 
 
 
 # **Output and Visualization**
@@ -247,6 +247,8 @@ Experiment results are saved in the specified output directory (default: timesta
 * Detailed JSON data of results
 
 * Experiment-specific visualizations (e.g., noise tolerance, energy allocation)
+
+* Currently fatigue visuralizations are the only experiment handled by their own visualization tool. Hoping to move forward with this modular method.
 
 
 # Getting Started
@@ -262,51 +264,51 @@ NumPy, Matplotlib
 
 Clone the repository:
 ```git clone https://github.com/flatstats/ecliphra.git cd ecliphra```
+```pip install -e .```
+```pip install ecliphra```
 
-# Install dependencies:
-```pip install -r requirements.txt```
 
 
 # Running Experiments
 
-Use the run.py script to execute different types of experiments:
+Use -m ecliphra.run to execute different types of experiments:
 **Run a semantic experiment with semantics model for 40 steps** 
 
-```python run.py --experiment semantic --model semantics --steps 40```
+```python -m ecliphra.run --experiment semantic --model semantics --steps 40```
 
 **Run an echo experiment with echo model for 30 steps with input every 5 steps**
 
-```python run.py --experiment echo --model echo --steps 30 --input-frequency 5```
+```python -m ecliphra.run --experiment echo --model echo --steps 30 --input-frequency 5```
 
 **Run a noise resistance experiment with multiple noise levels**
 
-```python run.py --experiment noise --model semantics --noise-levels 0.1 0.2 0.3 0.4 0.5```
+```python -m ecliphra.run --experiment noise --model semantics --noise-levels 0.1 0.2 0.3 0.4 0.5```
 
 **Run a pattern transition experiment**
 
-```python run.py --experiment transition --model semantics --transition-steps 15```
+```python -m ecliphra.run --experiment transition --model semantics --transition-steps 15```
 
 **Run a photosynthesis experiment**
 
-```python run.py --experiment photosynthesis --model photo --steps 40 --field-size 32 --output-dir photo_experiment_results```
+```python -m ecliphra.run --experiment photosynthesis --model photo --steps 40 --field-size 32 --output-dir photo_experiment_results```
 
  **Run an energy system experiment**
  
-```python run.py --experiment energy --model energy --steps 40 --field-size 32 --output-dir energy_experiment_results```
+```python -m ecliphra.run --experiment energy --model energy --steps 40 --field-size 32 --output-dir energy_experiment_results```
 
 **Run a prefrontal capabilities experiment**
 
-```python run.py --experiment prefrontal --model energy --prefrontal \```
+```python -m ecliphra.run --experiment prefrontal --model energy --prefrontal \```
     ```--steps 50 --field-size 32 --working-memory-size 7 --max-goals 3 \
     --output-dir prefrontal_experiments/test1```
     
 **Run enhanced fatigue controller experiment**
 
- ```python run.py --experiment prefrontal --model energy --prefrontal --enhanced-fatigue --fatigue-recovery 0.45 --fatigue-decay 0.98 --fatigue-visualize --fatigue-debug --steps 60 --working-memory-size 7 --max-goals 3 --output-dir prefrontal_experiments/fatigue_test```
+ ```python -m ecliphra.run --experiment prefrontal --model energy --prefrontal --enhanced-fatigue --fatigue-recovery 0.45 --fatigue-decay 0.98 --fatigue-visualize --fatigue-debug --steps 60 --working-memory-size 7 --max-goals 3 --output-dir prefrontal_experiments/fatigue_test```
 
 **Run all experiments with a specific model**
 
-```python run.py --experiment all --model semantics --output-dir my_experiments```
+```python -m ecliphra.run --experiment all --model semantics --output-dir my_experiments```
 
 # Technical Concepts
 
