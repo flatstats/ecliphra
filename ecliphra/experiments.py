@@ -30,7 +30,7 @@ import os
 import json
 from datetime import datetime
 from collections import defaultdict
-from ecliphra.visual_tools.fatigue_visualization import visualize_fatigue_dynamics, create_fatigue_debug_dashboard
+from ecliphra.visuals.fatigue_visualization import visualize_fatigue_dynamics, create_fatigue_debug_dashboard
 
 class EcliphraExperiment:
     """Base class for all Ecliphra experiments"""
