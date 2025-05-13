@@ -177,6 +177,12 @@ classDiagram
         +focus_attention()
         +allocate_resources()
     }
+    class EnhancedFatigueController {
+        +compute_fatigue_increment()
+        +compute_fatigue_factor()
+        +detect_unproductive_drift()
+        +apply_rebalancing()
+    }
 
     EcliphraField <|-- EcliphraFieldWithEcho
     EcliphraFieldWithEcho <|-- EcliphraFieldWithSemantics
@@ -186,6 +192,7 @@ classDiagram
 
     EcliphraFieldWithSemantics --> EnhancedFingerprinting : uses
     EcliphraFieldWithPrefrontal --> PrefrontalModule : contains
+    EcliphraFieldWithPrefrontal --> EnhancedFatigueController : uses
 ```
 
 # **Key Features**
@@ -198,11 +205,13 @@ classDiagram
 
 **Semantic Memory**: Association and recall of semantically similar patterns through recursive reinforcement.
 
-**Photosynthesis**-like Signal Processing: Energy-driven classification, growth, and integration of signals based on their structural characteristics.
+**Photosynthesis**:  (Retired for now, needs fixed) Energy-driven classification, growth, and integration of signals based on their structural characteristics.
 
 **Energy System**: Adaptive resource allocation system inspired by biological energy regulation processes.
 
-**Prefrontal Capabilities**: Goal-directed behavior modulation, working memory persistence, and executive control functions.
+**Prefrontal Capabilities**: Goal directed behavior modulation, working memory persistence, and executive control functions.
+
+UPDATED **Enhanced Fatigue Controller**: Measures effort to how much has changed to see what is left after completing a goal.
 
 
 
@@ -252,7 +261,7 @@ NumPy, Matplotlib
 # Installation
 
 Clone the repository:
-```git clone https://github.com/your-username/ecliphra.git cd ecliphra```
+```git clone https://github.com/flatstats/ecliphra.git cd ecliphra```
 
 # Install dependencies:
 ```pip install -r requirements.txt```
@@ -290,6 +299,10 @@ Use the run.py script to execute different types of experiments:
 ```python run.py --experiment prefrontal --model energy --prefrontal \```
     ```--steps 50 --field-size 32 --working-memory-size 7 --max-goals 3 \
     --output-dir prefrontal_experiments/test1```
+    
+**Run enhanced fatigue controller experiment**
+
+ ```python run.py --experiment prefrontal --model energy --prefrontal --enhanced-fatigue --fatigue-recovery 0.45 --fatigue-decay 0.98 --fatigue-visualize --fatigue-debug --steps 60 --working-memory-size 7 --max-goals 3 --output-dir prefrontal_experiments/fatigue_test```
 
 **Run all experiments with a specific model**
 
@@ -299,9 +312,9 @@ Use the run.py script to execute different types of experiments:
 
 **Field Dynamics**
 
-Ecliphra's core is a field that evolves according to physics-inspired dynamics:
+Ecliphra's core is a field that evolves according to physics inspired dynamics:
 
-* Wave-like propagation of perturbations
+* Wave like propagation of perturbations
 * Attractor detection and tracking
 * Stability and resonance calculations
 
@@ -309,15 +322,15 @@ Ecliphra's core is a field that evolves according to physics-inspired dynamics:
 
 Enhanced fingerprinting provides:
 
-* Pattern type detection (stripes, spirals, blobs)
-* Noise-resistant recognition
+* Pattern type detection such as stripes, spirals, and blobs
+* Noise resisting recognition
 * Semantic similarity matching
 
 **Energy System**
 
 The energy allocation system manages:
 
-* Signal energy characteristics (intensity, coherence, complexity)
+* Signal energy characteristics this includes intensity, coherence, and complexity
 * Energy distribution across maintenance, growth, and adaptation pathways
 * Field modulation based on energy allocation
 
@@ -346,17 +359,17 @@ Future work includes:
 
 # **Ongoing Development**
 
-Ecliphra is an active research framework under continuous development, inspired by the belief that emergence arises not from imposing structure onto chaos, but from surfing the flow of hidden coherence within dynamic fields.
+Ecliphra is an active research framework under continuous development, in other words, it is far from perfect but continuing to develop just as I like to think I am as well.  I was inspired by the belief that emergence arises not from imposing structure onto chaos, but something like surfing the flow of hidden coherence within dynamic fields.
 
-The system is currently stable across single-field memory persistence tests, semantic matching, and energy modulation, with ongoing efforts focused on:
+The system is currently stable across single field memory persistence tests, semantic matching, and energy modulation, with ongoing efforts focused on:
 
-* Refining field stabilization mechanisms inspired by turbulence convergence.
+* Refining the field stabilization mechanics that were inspired by turbulence convergence.
 
-* Expanding prefrontal systems for recursive goal arbitration.
+* Expanding the prefrontal systems for more recursive goal arbitration.
 
-* Modeling drift, collapse, and resilience in identity structures across evolving fields.
+* Modeling drift, collapse, and resilience when in identity structures across evolving fields.
 
-* Ecliphra is not a static model, but a living system—continuously unfolding.
+* Ecliphra is not meant to be a static model but something of a living system that is continuously unfolding.
 
 # Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
