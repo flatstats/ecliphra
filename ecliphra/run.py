@@ -27,12 +27,12 @@ Usage:
 import argparse
 import os
 import sys
-from datetime import datetime
-from ecliphra.models import create_ecliphra_model, VERSIONS
-from ecliphra.experiments import create_experiment, PhotosynthesisExperiment, EcliphraExperiment, PrefrontalExperiment
-from ecliphra.utils.curvature_riding import integrate_curvature_riding, integrate_curvature_riding_with_fatigue, implement_consolidation_phase, curvature_aware_forward
-from ecliphra.utils.enhanced_fatigue_controller import EnhancedFatigueController
-from ecliphra.visuals.fatigue_visualization import visualize_fatigue_dynamics, create_fatigue_debug_dashboard
+from datetime  datetime
+from ecliphra.models  create_ecliphra_model, VERSIONS
+from ecliphra.experiments  create_experiment, PhotosynthesisExperiment, EcliphraExperiment, PrefrontalExperiment
+from ecliphra.utils.curvature_riding  integrate_curvature_riding, integrate_curvature_riding_with_fatigue, implement_consolidation_phase, curvature_aware_forward
+from ecliphra.utils.enhanced_fatigue_controller  EnhancedFatigueController
+from ecliphra.visuals.fatigue_visualization  visualize_fatigue_dynamics, create_fatigue_debug_dashboard
 
 def main():
     """Parse arguments and run the requested experiment"""
@@ -144,7 +144,7 @@ def main():
 def run_single_experiment(args):
     """Run a single experiment type with the given parameters"""
     # Create the model
-    import inspect
+     inspect
     print(inspect.getsource(create_ecliphra_model))
 
     print(f"Creating {args.model} model...")
@@ -176,7 +176,7 @@ def run_single_experiment(args):
         try:
 
             try:
-                from ecliphra.curvature_riding import integrate_curvature_riding, integrate_curvature_riding_with_fatigue
+                from ecliphra.utils.curvature_riding import integrate_curvature_riding, integrate_curvature_riding_with_fatigue
                 print("Successfully imported integrate_curvature_riding")
             except ImportError as ie:
                 print(f"Failed to import curvature_riding: {ie}")
