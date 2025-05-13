@@ -801,7 +801,7 @@ class EcliphraFieldWithSemantics(EcliphraFieldWithEcho):
         self.last_semantic_match = None
 
 
-from ecliphra.enhanced_fingerprinting import EnhancedFingerprinting
+from ecliphra.utils.enhanced_fingerprinting import EnhancedFingerprinting
 
 class EcliphraWithEnhancedFingerprinting(torch.nn.Module):
     """
