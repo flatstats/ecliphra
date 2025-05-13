@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from typing import Dict, Tuple, List, Optional, Union
-from ecliphra.prefrontal import PrefrontalModule
+from ecliphra.utils.prefrontal import PrefrontalModule
 
 
 class SignalAnalyzer(nn.Module):
