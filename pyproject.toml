@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecliphra"
+version = "0.1.7"
+description = "Neural Field Dynamics with Emergent Pattern Recognition"
+authors = [{name="Danielle Breegle", email="daniellebreegle@gmail.com"}]
+license = {text = "CC BY-NC 4.0"}
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.0",
+    "numpy",
+    "matplotlib"
+
+]
+
+[project.urls]
+Homepage = "https://github.com/flatstats/ecliphra"
+
+[tool.setuptools.packages.find]
+include = ["ecliphra", "ecliphra.*"]
