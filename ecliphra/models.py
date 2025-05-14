@@ -201,33 +201,41 @@ class EcliphraField(nn.Module):
             kernel_size=3, stride=1, padding=1
         ).squeeze()
 
-        # Finding local maxima above threshold
-        threshold = smoothed.mean().item() + 0.5 * smoothed.std().item()
+        field_mean = smoothed.mean().item()
+        field_std = smoothed.std().item()
+        threshold = field_mean + 0.3 * field_std  # More sensitive threshold
+        
         candidates = []
-
+        
         for i in range(1, h-1):
             for j in range(1, w-1):
                 center = smoothed[i, j].item()
                 if center < threshold:
                     continue
-
-                # Check maxium
+                
                 neighborhood = smoothed[i-1:i+2, j-1:j+2]
                 if center >= torch.max(neighborhood).item():
-                    base_basin_size = self.calculate_basin(i, j)
-
-                    adaptive_multiplier = 1.0
-                    if hasattr(self, 'adaptivity'):
-                        adaptive_multiplier = 1.0 + self.adaptivity[i, j].item()
-
-                    adaptive_basin_size = base_basin_size * adaptive_multiplier
-
-                    strength = center * adaptive_basin_size
-
+                    # Modifying basin size for more sensitivity to pattern variation
+                    base_basin_size = self.calculate_basin(i, j, sensitivity=1.5)  # Increased
+                    
+                    energy_multiplier = 1.0
+                    if hasattr(self, 'energy_current'):
+                        energy_multiplier = 1.0 + self.energy_current[i, j].item() * 0.7  
+                    
+                    adaptive_basin_size = base_basin_size * energy_multiplier
+                    
+                    # Looking for more pattern-specific weighting
+                    pattern_weight = 1.0
+                    if hasattr(self, 'last_pattern_type'):
+                        pattern_weight = 1.2 if self.last_pattern_type == "spiral" else 1.0
+                    
+                    strength = center * adaptive_basin_size * pattern_weight
+                    
                     candidates.append(((i, j), strength, base_basin_size, adaptive_basin_size))
-
-        candidates.sort(key=lambda x: x[1], reverse=True)  # Sort by strength and keep top 3
-
+        
+        candidates.sort(key=lambda x: x[1], reverse=True)
+        
+        # Modifying to store more attractor information
         self.attractors = [(pos, strength, base_size, adaptive_size)
                         for (pos, strength, base_size, adaptive_size) in candidates[:3]]
 
@@ -263,7 +271,47 @@ class EcliphraField(nn.Module):
         weights = torch.linspace(0.5, 1.0, len(recent_diffs))
         weighted_diff = sum(d * w for d, w in zip(recent_diffs, weights)) / sum(weights)
 
-        stability = 1.0 / (1.0 + weighted_diff)
+        stability = 1.0 / (1.0 + weighted_diff * 4.0)  # Increased sensitivity multiplier
+        
+        # Adding field entropy to calculation in stability (oops)
+        field_norm = F.normalize(self.field.view(-1), p=2, dim=0)
+        field_squared = field_norm * field_norm
+        entropy = -torch.sum(field_squared * torch.log2(field_squared + 1e-10))
+        entropy_factor = torch.clamp(entropy / 10.0, 0.0, 1.0).item()
+
+        stability = stability * 0.8 + (1.0 - entropy_factor) * 0.2
+
+        return stability
+
+    def process_with_metrics(self, pattern, step, noise_level):
+        """Process a pattern and collect detailed metrics"""
+        self.reset()
+        
+        result = self(input_tensor=pattern)
+        
+        if hasattr(self, 'create_robust_fingerprint'):
+            fingerprint, pattern_type = self.create_robust_fingerprint(pattern)
+        else:
+            fingerprint, pattern_type = None, "unknown"
+        
+        metrics = {
+            'step': step,
+            'noise_level': noise_level,
+            'stability': result.get('stability', 0.0),
+            'attractor_count': len(result.get('attractors', [])),
+            'pattern_type': pattern_type,
+            'field_norm': torch.norm(self.field).item(),
+            'field_mean': self.field.mean().item(),
+            'field_std': self.field.std().item(),
+            'field_max': self.field.max().item(),
+            'field_min': self.field.min().item(),
+        }
+        
+        if hasattr(self, 'get_energy_statistics'):
+            energy_stats = self.get_energy_statistics()
+            metrics.update(energy_stats)
+        
+        return metrics
         return stability
 
     def reset(self):
