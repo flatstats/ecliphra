@@ -239,7 +239,7 @@ class EcliphraField(nn.Module):
         self.attractors = [(pos, strength, base_size, adaptive_size)
                         for (pos, strength, base_size, adaptive_size) in candidates[:3]]
 
-    def calculate_basin(self, i, j):
+    def calculate_basin(self, i, j, sensitivity=1.0):
         """Calculate basin of attraction width"""
         h, w = self.field.shape
         grad_sum = 0.0
