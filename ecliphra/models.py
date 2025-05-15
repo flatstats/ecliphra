@@ -216,7 +216,7 @@ class EcliphraField(nn.Module):
                 neighborhood = smoothed[i-1:i+2, j-1:j+2]
                 if center >= torch.max(neighborhood).item():
                     # Modifying basin size for more sensitivity to pattern variation
-                    base_basin_size = self.calculate_basin(i, j, sensitivity=1.5)  # Increased
+                    base_basin_size = self.calculate_basin(i, j)  # Increased
                     
                     energy_multiplier = 1.0
                     if hasattr(self, 'energy_current'):
@@ -239,7 +239,7 @@ class EcliphraField(nn.Module):
         self.attractors = [(pos, strength, base_size, adaptive_size)
                         for (pos, strength, base_size, adaptive_size) in candidates[:3]]
 
-    def calculate_basin(self, i, j, sensitivity=1.0):
+    def calculate_basin(self, i, j):
         """Calculate basin of attraction width"""
         h, w = self.field.shape
         grad_sum = 0.0
@@ -257,7 +257,6 @@ class EcliphraField(nn.Module):
 
         avg_grad = grad_sum / count if count > 0 else 1.0 # note to self: smaller means wider basin
 
-        avg_grad = avg_grad / sensitivity
 
         # smaller gradient = wider basin
         if avg_grad < 0.001:
