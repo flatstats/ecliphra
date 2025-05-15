@@ -257,6 +257,8 @@ class EcliphraField(nn.Module):
 
         avg_grad = grad_sum / count if count > 0 else 1.0 # note to self: smaller means wider basin
 
+        avg_grad = avg_grad / sensitivity
+
         # smaller gradient = wider basin
         if avg_grad < 0.001:
             return 5.0  # Cap on basin size
